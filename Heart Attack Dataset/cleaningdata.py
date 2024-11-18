@@ -48,6 +48,19 @@ plt.ylabel('Heart Rate (Thalachh)')
 plt.title('Oldpeak vs Heart Rate, by Slope')
 plt.show()
 
+####
+figure4=plt.figure(figsize=(10,7))
+ax = figure4.add_subplot(111, projection='3d')
+sc = ax.scatter(data['oldpeak'], data['max heart rate'], data['ST slope'], c=data['ST slope'], cmap='viridis', s=60)
+ax.set_xlabel('Oldpeak (ST Depression)')
+ax.set_ylabel('Heart Rate (max heart rate)')
+ax.set_zlabel('Slope (ST slope)')
+plt.colorbar(sc, label='Slope (SLP)')
+plt.title('Oldpeak vs Heart Rate vs Slope')
+plt.show()
+
+
+
 
 
 

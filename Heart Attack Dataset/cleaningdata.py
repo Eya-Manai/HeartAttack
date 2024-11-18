@@ -20,6 +20,16 @@ plt.title("Heart Rate Max  Vs Age for Exercise Angina")
 plt.xlabel("Age")
 plt.ylabel("Max Heart Rate")
 plt.show()
+figure2=plt.figure(figsize=(6,6))
+sns.countplot(data=data,x='chest pain type',hue='exercise angina',palette='Set2')
+plt.title('Distribution of Chest Pain Types by Exercising Status')
+plt.xlabel("chest pain type")
+chestP_Level=["Typical Angina","Atypical","Non anginial Pain","Asymptomatic"]
+plt.xticks(ticks=[0,1,2,3],labels=chestP_Level)
+plt.ylabel(" Count exercise angina")
+plt.show()
+
+
 
 
 

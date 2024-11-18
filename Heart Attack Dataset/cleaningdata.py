@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np 
 import matplotlib.pyplot as plt
 import seaborn as sns
+from mpl_toolkits.mplot3d import Axes3D
+
 
 data=pd.read_csv(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\HeartCatalogue.csv')
 data.rename(columns={"Output:": "HeartAttackRisk"}, inplace=True)
@@ -38,6 +40,14 @@ plt.title('Distribution of Chest Pain Types by Sex Status')
 plt.xticks(ticks=[0,1,2,3],labels=chestP_Level)
 plt.ylabel(" Count people")
 plt.show()
+###Oldpeak vs Heart Rate, by Slope
+figure3=plt.figure(figsize=(6,6))
+sns.scatterplot(data=data,x='oldpeak', y='max heart rate',hue='ST slope')
+plt.xlabel('Oldpeak (ST Depression)')
+plt.ylabel('Heart Rate (Thalachh)')
+plt.title('Oldpeak vs Heart Rate, by Slope')
+plt.show()
+
 
 
 

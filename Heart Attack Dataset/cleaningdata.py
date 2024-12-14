@@ -14,8 +14,9 @@ print("Missing in Data :" , data.isna().sum().sum())
 print("Duplicated in Data :" , data.duplicated().sum())
 data.drop_duplicates(inplace=True)
 print("Duplicated in Data :" , data.duplicated().sum())
-#print(data[data.duplicated()])
-
+data['cholesterol'] = data['cholesterol'].replace(0, np.nan)
+data['cholesterol'] = data['cholesterol'].fillna(data['cholesterol'].median())
+print("Missing in Data after cleaning :", data.isna().sum().sum())
 #Heart Rate Max  Vs Age for Exercise Angina
 figure1=plt.figure(figsize=(6,6))
 sns.scatterplot(data=data,x='age', y='max heart rate',hue='exercise angina')
@@ -58,8 +59,62 @@ ax.set_zlabel('Slope (ST slope)')
 plt.colorbar(sc, label='Slope (SLP)')
 plt.title('Oldpeak vs Heart Rate vs Slope')
 plt.show()
+####
+main_feature_col = [
+    'age', 'sex', 'chest pain type', 'resting bp s', 
+    'cholesterol', 'max heart rate', 'oldpeak', 
+    'ST slope', 'exercise angina'
+]
 
+# Create the plot
+fig, axes = plt.subplots(3, 3, figsize=(10, 10))
+axes = axes.flatten()
 
+# Plot histograms
+for i, col in enumerate(main_feature_col):
+    try:
+        # For numerical columns
+        sns.histplot(data=data, x=col, hue='target', multiple='layer', ax=axes[i])
+    except TypeError:
+        # For categorical columns
+        sns.countplot(data=data, x=col, hue='target', ax=axes[i])
+    
+    # Customize plot
+    axes[i].set_title(f'{col} VS Heart Attack Risk')
+    axes[i].set_xlabel(col)
+    axes[i].set_ylabel('Frequency')
+    axes[i].legend(title='Heart Attack Risk', labels=['Low Risk', 'High Risk'])
+plt.tight_layout()
+plt.show()
+
+# Alternative visualization for numerical features
+numerical_features = [
+    'age', 'resting bp s', 'cholesterol', 
+    'max heart rate', 'oldpeak'
+]
+
+fig, axes = plt.subplots(2, 3, figsize=(5, 5))
+axes = axes.flatten()
+
+for i, col in enumerate(numerical_features):
+    sns.boxplot(data=data, x='target', y=col, ax=axes[i])
+    
+    # Customize plot
+    axes[i].set_title(f'{col} Distribution by Heart Attack Risk')
+    axes[i].set_xlabel('Heart Attack Risk')
+    axes[i].set_ylabel(col)
+    axes[i].set_xticklabels(['Low Risk', 'High Risk'])
+
+plt.tight_layout()
+plt.show()
+
+# Correlation Heatmap
+plt.figure(figsize=(12, 10))
+correlation_matrix = data.corr()
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+plt.title('Correlation Heatmap of Features')
+plt.tight_layout()
+plt.show()
 
 
 

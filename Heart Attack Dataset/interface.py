@@ -69,7 +69,7 @@ BDEntry=Entry(headingEntry,textvariable=BD,width=20,font="arial 20",bg="#ededed"
 BDEntry.place(x=450,y=130)
 
 ####################################################################################################
-DetailsEntry=Frame(root,width=550,height=230,bg="#dbe0e3")
+DetailsEntry=Frame(root,width=550,height=262,bg="#dbe0e3")
 DetailsEntry.place(x=30,y=450)
 
 #RadioButtons
@@ -149,14 +149,39 @@ Label(DetailsEntry,text="Chest Pain:",font="arial 13",width=9,bg=frameBg,fg=fram
 Label(DetailsEntry,text="Resting ER:",font="arial 13",width=9,bg=frameBg,fg=framefg).place(x=10,y=90)
 Label(DetailsEntry,text="ST slope:",font="arial 13",width=9,bg=frameBg,fg=framefg).place(x=10,y=130)
 Label(DetailsEntry,text="Class:",font="arial 13",width=9,bg=frameBg,fg=framefg).place(x=10,y=170)
+Label(DetailsEntry,text="Smoking:",font="arial 13",width=9,bg=frameBg,fg=framefg).place(x=10,y=210)
+
+
+def slection4():
+    input=cp_combox.get()
+    if input=="1=typical angina":
+        return(1)
+    elif input=="2=atypical angina":
+        return(2)
+    elif input=="3=non-anginal pain":
+        return(3)
+    elif input=="4=asymptomatic":
+        return(4)
+    else:
+        print(ExAngina)
+    
+def slection5():
+    input=resting_combox.get()
+    if input=="0=normal":
+        return(0)
+    elif input=="1=ST abnormality":
+        return(1)
+    elif input=="2=hypertrophy":
+        return(2)
+        
 
 cp_combox=Combobox(DetailsEntry,values=["1=typical angina","2=atypical angina","3=non-anginal pain","4=asymptomatic"],font="arial 13",state="r",width=14).place(x=105,y=50)
 resting_combox=Combobox(DetailsEntry,values=["0=normal","1=ST abnormality","2=hypertrophy"],font="arial 13",state="r",width=14).place(x=105,y=90)
 stSlope_combox=Combobox(DetailsEntry,values=["0=upsloping","2=flat","3=downsloping"],font="arial 13",state="r",width=14).place(x=105,y=130)
 class_combox=Combobox(DetailsEntry,values=["Normal","Heart disease"],font="arial 13",state="r",width=14).place(x=105,y=170)
 
-##################################Data Entry Box##############################################
 
+##################################Data Entry Box##############################################
 Label(DetailsEntry,text="Blood Pressure:",font="arial 13",width=15,bg=frameBg,fg=framefg).place(x=260,y=50)
 Label(DetailsEntry,text="Cholesterol:",font="arial 13",width=15,bg=frameBg,fg=framefg).place(x=260,y=90)
 Label(DetailsEntry,text="Max Heart rate:",font="arial 13",width=15,bg=frameBg,fg=framefg).place(x=260,y=130)
@@ -178,8 +203,56 @@ oldpeakEntry=Entry(DetailsEntry,textvariable=oldPeak,width=10,font="arial 13",bg
 reportImage=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Report.png')
 reportBackground=Label(image=reportImage,bg=background)
 reportBackground.place(x=1120,y=340)
+report=Label(root,font="arial 25 bold",text="Hello",bg="white",fg="red").place(x=1170,y=550)
+report1=Label(root,font="arial 10 bold",text="Hello",bg="white").place(x=1130,y=610)
+
+##################################Graph##############################################
+graph_image=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\graph.png')
+Label(image=graph_image).place(x=600,y=270)
+Label(image=graph_image).place(x=860,y=270)
+Label(image=graph_image).place(x=600,y=500)
+Label(image=graph_image).place(x=860,y=500)
 
 
+##################################Button##############################################
+analysis_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Analysis.png')
+Button(root,image=analysis_Button,bd=0,bg=background,cursor="hand1").place(x=1130,y=240)
+
+##################################InfoButton##############################################
+info_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\info.png')
+Button(root,image=info_Button,bd=0,bg=background,cursor="hand2").place(x=10,y=240)
+
+##################################SaveButton##############################################
+save_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\save.png')
+Button(root,image=save_Button,bd=0,bg=background,cursor="hand2" ,width=50,height=50).place(x=1350,y=250)
+
+##################################Smooking Button##############################################
+button_mode=True
+choice="smoking"
+
+def changeMode():
+    global button_mode
+    global choice
+    if button_mode:
+        choice="non_smoking"
+        mode.config(image=non_smooking_Icon,activebackground="white")
+        button_mode=False
+    else:
+        choice="smoking"
+        mode.config(image=smooking_Icon,activebackground="white")
+        button_mode=True
+    print(choice)
+
+smooking_Icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\smoker.png')
+non_smooking_Icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\nonsmoker.png')
+mode=Button(root,image=smooking_Icon,bg="#dbe0e3",bd=0,cursor="hand2",command=changeMode)
+mode.place(x=135,y=656)
+
+##################################Log out Button##############################################
+
+logOut_icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\logout.png')
+logOut_Button=Button(root,image=logOut_icon,bd=0,bg="#df2d4b",cursor="hand2")
+logOut_Button.place(x=1375,y=55)
 
 
 

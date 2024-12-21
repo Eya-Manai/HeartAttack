@@ -18,8 +18,43 @@ root.title("Heart Attack Predection System")
 root.geometry('1450x750') 
 root.resizable(False,False)
 root.config(bg=background)
+
+def Info():
+    icon_Window=Toplevel(root)
+    icon_Window.geometry("1000x600+100+100")
+    icon_Window.title("Info")
+
+    #iconImage
+
+    icon_image=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\info.png')
+    icon_Window.iconphoto(False,icon_image)
+
+    #Heading 
+    Label(icon_Window,text="Information related to dataset",font="robot 17 bold").pack(padx=20,pady=20)
+
+    #Label
+    Label(icon_Window,text="Age- Age in years ",font="arial 11").place(x=20,y=100) 
+    Label(icon_Window,text="Sex- Sex 1 = male, 0= female",font="arial 11").place(x=20,y=130) 
+    Label(icon_Window,text="Chest pain type- Chest Pain Type Value 1: typical angina,Value 2: atypical angina, Value 3: non-anginal pain,Value 4: asymptomatic ",font="arial 11").place(x=20,y=160) 
+    Label(icon_Window,text="Resting bp s - Resting blood pressure in mm Hg",font="arial 11").place(x=20,y=190) 
+    Label(icon_Window,text="Cholesterol - serum cholesterol in mg/dl",font="arial 11").place(x=20,y=220) 
+    Label(icon_Window,text="Fbs- (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)",font="arial 11").place(x=20,y=250) 
+    Label(icon_Window,text=("Resting ecg - resting electrocardiogram results Value 0: normal , Value 1: having ST-T wave abnormality ST elevation or depression of > 0.05 mV "),font="arial 11").place(x=20, y=280)
+    Label(icon_Window,text=("    Value 2: showing probable or definite left ventricular hypertrophy by Estes' criteria"),font="arial 11").place(x=20, y=310)
+    Label(icon_Window,text="Max heart rate - maximum heart rate achieved 71–202",font="arial 11").place(x=20,y=340) 
+    Label(icon_Window,text="Oldpeak =ST - oldpeak Unit depression",font="arial 11").place(x=20,y=370) 
+    Label(icon_Window,text="ST slope -the slope of the peak exercise ST segment Value 1: upsloping, Value 2: flat ,Value 3: downsloping",font="arial 11").place(x=20,y=400) 
+    Label(icon_Window,text="Class- target  1=heart disease, 0=Normal",font="arial 11").place(x=20,y=430) 
+    icon_Window.mainloop()
+
+
+
+
+
+
 image_Icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\heart.png')
 root.iconphoto(False,image_Icon)
+
 
 #Header Section
 logo=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\doctor.png')
@@ -79,6 +114,17 @@ Label(DetailsEntry,text="sex:",font="arial 13",bg=frameBg,fg=framefg).place(x=10
 Label(DetailsEntry,text="Fbs:",font="arial 13",bg=frameBg,fg=framefg).place(x=180,y=10)
 Label(DetailsEntry,text="Ex An:",font="arial 13",bg=frameBg,fg=framefg).place(x=335,y=10)
 
+def Clear():
+    Name.get("")
+    BD.get("")
+    bloodP.get("")
+    chol.get("")
+    maxHr.set("")
+    oldPeak.set("")
+
+def Analysis():
+    print("Hello")
+    
 
 def selection():
     if gen.get()==0:
@@ -216,11 +262,11 @@ Label(image=graph_image).place(x=860,y=500)
 
 ##################################Button##############################################
 analysis_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Analysis.png')
-Button(root,image=analysis_Button,bd=0,bg=background,cursor="hand1").place(x=1130,y=240)
+Button(root,image=analysis_Button,bd=0,bg=background,cursor="hand1",command=Analysis).place(x=1130,y=240)
 
 ##################################InfoButton##############################################
 info_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\info.png')
-Button(root,image=info_Button,bd=0,bg=background,cursor="hand2").place(x=10,y=240)
+Button(root,image=info_Button,bd=0,bg=background,cursor="hand2",command=Info).place(x=10,y=240)
 
 ##################################SaveButton##############################################
 save_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\save.png')
@@ -250,14 +296,17 @@ mode.place(x=135,y=656)
 
 ##################################Log out Button##############################################
 
-logOut_icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\logout.png')
-logOut_Button=Button(root,image=logOut_icon,bd=0,bg="#df2d4b",cursor="hand2")
+#To close window
+def Logout():
+    root.destroy()
+
+logOut_icon=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\off.png')
+logOut_Button=Button(root,image=logOut_icon,bd=0,bg="#df2d4b",cursor="hand2", command=Logout)
 logOut_Button.place(x=1375,y=55)
 
 
-
-
-
-
 root.mainloop()
+
+def Logout():
+    root.destroy()
 

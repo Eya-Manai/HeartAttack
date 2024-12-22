@@ -10,6 +10,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import date
+from tkinter import messagebox
+
 background="#f0ddd5"
 frameBg="#62a7ff"
 framefg="#fefbfb"
@@ -123,20 +126,47 @@ def Clear():
     oldPeak.set("")
 
 def Analysis():
-    print("Hello")
+    name=Name.get()
+    D1=Date.get()
+    today=date.today()
+
+    try:
+        B=selection()
+    except:
+        messagebox.showerror("Gender Error","Please select a gender")
+
+    try:
+        C=selection2()
+    except:
+        messagebox.showerror("Fbs Error","Please check if (fasting blood sugar>120 mg/dl)")
+
+    try:
+        D=selection3()
+    except:
+        messagebox.showerror("Exercice Angina Error","Please select the exercice angina")
+    try:
+        E=int(slection4())
+    except:
+        messagebox.showerror("Chest Pain Error","Please select chest pain value")
     
+    try:
+        F=int(slection5())
+    except:
+        messagebox.showerror("Resting","Please select the resting electrocardiogram results")
+        
+        
+
+
 
 def selection():
-    if gen.get()==0:
-        gender=0
-        return gender
-        print(gender)
-    elif gen.get()==1:
-        gender=1
-        return gender
-        print(gender)
-    else:
-        print(gen)
+    gender = gen.get()
+    if gender == -1:
+        raise ValueError("Gender not selected")
+    elif gender == 0:
+        print("Female")
+    elif gender == 1:
+        print("Male")
+    return gender
 
     
 
@@ -167,10 +197,33 @@ def selection3():
         print(exa)
     else:
         print(exa)
+
+def slection4():
+    input=cp_combox.get()
+    if input=="1=typical angina":
+        return(1)
+    elif input=="2=atypical angina":
+        return(2)
+    elif input=="3=non-anginal pain":
+        return(3)
+    elif input=="4=asymptomatic":
+        return(4)
+    else:
+        print(ExAngina)
+    
+def slection5():
+    input=resting_combox.get()
+    if input=="0=normal":
+        return(0)
+    elif input=="1=ST abnormality":
+        return(1)
+    elif input=="2=hypertrophy":
+        return(2)
+
 #Gender
 gen=IntVar(value=-1)
 R1=Radiobutton(DetailsEntry,text="Male",variable=gen,value=1,command=selection)
-R2=Radiobutton(DetailsEntry,text="Male",variable=gen,value=0,command=selection)
+R2=Radiobutton(DetailsEntry,text="Female",variable=gen,value=0,command=selection)
 R1.place(x=43,y=10)
 R2.place(x=93,y=10)
 
@@ -198,27 +251,6 @@ Label(DetailsEntry,text="Class:",font="arial 13",width=9,bg=frameBg,fg=framefg).
 Label(DetailsEntry,text="Smoking:",font="arial 13",width=9,bg=frameBg,fg=framefg).place(x=10,y=210)
 
 
-def slection4():
-    input=cp_combox.get()
-    if input=="1=typical angina":
-        return(1)
-    elif input=="2=atypical angina":
-        return(2)
-    elif input=="3=non-anginal pain":
-        return(3)
-    elif input=="4=asymptomatic":
-        return(4)
-    else:
-        print(ExAngina)
-    
-def slection5():
-    input=resting_combox.get()
-    if input=="0=normal":
-        return(0)
-    elif input=="1=ST abnormality":
-        return(1)
-    elif input=="2=hypertrophy":
-        return(2)
         
 
 cp_combox=Combobox(DetailsEntry,values=["1=typical angina","2=atypical angina","3=non-anginal pain","4=asymptomatic"],font="arial 13",state="r",width=14).place(x=105,y=50)

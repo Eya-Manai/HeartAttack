@@ -12,6 +12,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import date
 from tkinter import messagebox
+import pickle
+import sklearn
 
 background="#f0ddd5"
 frameBg="#62a7ff"
@@ -21,6 +23,9 @@ root.title("Heart Attack Predection System")
 root.geometry('1450x750') 
 root.resizable(False,False)
 root.config(bg=background)
+print(__file__)
+f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model.pkl',"rb")
+model=pickle.load(f)
 
 def Info():
     icon_Window=Toplevel(root)
@@ -238,6 +243,14 @@ def Analysis():
     canvas=FigureCanvasTkAgg(f4)
     canvas.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
     canvas._tkcanvas.place(width=250,height=250,x=860,y=500)
+
+    #Input Data age sex chestpain Hr exangina oldpeak slope
+    input_data=[[A,B,E,K,D,L,G]]
+    print(input_data)
+    print(model.predict(input_data))
+    predection=model.predict(input_data)
+ 
+
 
 
 def getAge():

@@ -24,8 +24,14 @@ root.geometry('1450x750')
 root.resizable(False,False)
 root.config(bg=background)
 print(__file__)
-f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model2.pkl',"rb")
-model=pickle.load(f)
+#f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model2.pkl',"rb")
+#model=pickle.load(f)
+with open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\modelthis.pkl',"rb") as model_File:
+    rf_model=pickle.load(model_File)
+with open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\scaler.pkl',"rb") as scaler_File:
+    scaler=pickle.load(scaler_File)
+
+
 
 def Info():
     icon_Window=Toplevel(root)
@@ -202,7 +208,7 @@ def Analysis():
         return
     
     try:
-        L=int(oldPeak.get())
+        L=float(oldPeak.get())
     except:
         messagebox.showerror("Old peak Error", "Please enter old peak value")
         return
@@ -262,8 +268,9 @@ def Analysis():
     #Input Data age sex chestpain Hr exangina oldpeak slope
     
     input_data=[[A,B,E,K,D,L,G]]
+    scaled_input=scaler.transform(input_data)
     print(input_data)
-    predection=model.predict(input_data)
+    predection=rf_model.predict(scaled_input)
     print(predection[0])
     if(predection[0]==0):
         print("The Person does not have a Heart attack ")
@@ -273,6 +280,7 @@ def Analysis():
         print("The Person risks to have a Heart attack attack")
         report.config(text=f"Report:{1}",fg="#ed1c24")
         report1.config(text=f"{name}, risks to have a heart attack",fg="#FF0000")
+        
     
 def getAge():
     try:

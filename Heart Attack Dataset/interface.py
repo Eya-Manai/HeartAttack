@@ -24,7 +24,7 @@ root.geometry('1450x750')
 root.resizable(False,False)
 root.config(bg=background)
 print(__file__)
-f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model.pkl',"rb")
+f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model2.pkl',"rb")
 model=pickle.load(f)
 
 def Info():
@@ -122,6 +122,7 @@ Label(DetailsEntry,text="sex:",font="arial 13",bg=frameBg,fg=framefg).place(x=10
 Label(DetailsEntry,text="Fbs:",font="arial 13",bg=frameBg,fg=framefg).place(x=180,y=10)
 Label(DetailsEntry,text="Ex An:",font="arial 13",bg=frameBg,fg=framefg).place(x=335,y=10)
 
+
 def Clear():
     Name.get("")
     age.get("")
@@ -130,8 +131,15 @@ def Clear():
     maxHr.set("")
     oldPeak.set("")
 
+
+
+
 def Analysis():
-     
+    try:
+        name=Name.get()
+    except:
+        messagebox.showerror("Age Error","Please enter the Name")
+        return
     try:
         A=getAge()
     except:
@@ -198,6 +206,7 @@ def Analysis():
     except:
         messagebox.showerror("Old peak Error", "Please enter old peak value")
         return
+        
     
     print(f"A is Age: {A} years")
     print(f"B is Sex: {'Male' if B == 1 else 'Female'}")
@@ -211,6 +220,7 @@ def Analysis():
     print(f"J is Cholesterol: {J} mg/dl")
     print(f"K is Maximum Heart Rate Achieved: {K} bpm")
     print(f"L is Old Peak: {L}")
+
                 
     #Fist Graph 
     f=Figure(figsize=(4,4),dpi=100)
@@ -243,16 +253,27 @@ def Analysis():
     canvas=FigureCanvasTkAgg(f4)
     canvas.get_tk_widget().pack(side=tk.BOTTOM,fill=tk.BOTH,expand=True)
     canvas._tkcanvas.place(width=250,height=250,x=860,y=500)
-
+    
+    ##################################Report##############################################
+    report=Label(root,font="arial 25 bold",text="Hello",bg="white",fg="red")
+    report.place(x=1170,y=550)
+    report1=Label(root,font="arial 10 bold",text="Hello",bg="white")
+    report1.place(x=1130,y=610)
     #Input Data age sex chestpain Hr exangina oldpeak slope
+    
     input_data=[[A,B,E,K,D,L,G]]
     print(input_data)
-    print(model.predict(input_data))
     predection=model.predict(input_data)
- 
-
-
-
+    print(predection[0])
+    if(predection[0]==0):
+        print("The Person does not have a Heart attack ")
+        report.config(text=f"Report:{0}",fg="#8dc63f")
+        report1.config(text=f"{name},do not have a heart attack",fg="#8dc63f")
+    else:
+        print("The Person risks to have a Heart attack attack")
+        report.config(text=f"Report:{1}",fg="#ed1c24")
+        report1.config(text=f"{name}, risks to have a heart attack",fg="#FF0000")
+    
 def getAge():
     try:
         patient_age = age.get()
@@ -272,6 +293,7 @@ def getGender():
     elif gender == 1:
         print("Male")
     return gender
+
 
 def Getfbs():
     fbs = Fbs.get()
@@ -391,12 +413,7 @@ cholEntry=Entry(DetailsEntry,textvariable=chol,width=10,font="arial 13",bg="#ede
 maxHrEntry=Entry(DetailsEntry,textvariable=maxHr,width=10,font="arial 13",bg="#ededed",fg="#222222",bd=0).place(x=410,y=130)
 oldpeakEntry=Entry(DetailsEntry,textvariable=oldPeak,width=10,font="arial 13",bg="#ededed",fg="#222222",bd=0).place(x=410,y=170)
 
-##################################Report##############################################
-reportImage=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Report.png')
-reportBackground=Label(image=reportImage,bg=background)
-reportBackground.place(x=1120,y=340)
-report=Label(root,font="arial 25 bold",text="Hello",bg="white",fg="red").place(x=1170,y=550)
-report1=Label(root,font="arial 10 bold",text="Hello",bg="white").place(x=1130,y=610)
+
 
 ##################################Graph##############################################
 graph_image=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\graph.png')
@@ -417,6 +434,12 @@ Button(root,image=info_Button,bd=0,bg=background,cursor="hand2",command=Info).pl
 ##################################SaveButton##############################################
 save_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\save.png')
 Button(root,image=save_Button,bd=0,bg=background,cursor="hand2" ,width=50,height=50).place(x=1350,y=250)
+
+##################################ReportImage##############################################
+
+reportImage=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Report.png')
+reportBackground=Label(image=reportImage,bg=background)
+reportBackground.place(x=1120,y=340)
 
 ##################################Log out Button##############################################
 

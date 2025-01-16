@@ -16,7 +16,7 @@ import pickle
 import sklearn
 
 background="#f0ddd5"
-frameBg="#62a7ff"
+frameBg="#477dba"
 framefg="#fefbfb"
 root=Tk()
 root.title("Heart Attack Predection System")
@@ -24,8 +24,7 @@ root.geometry('1450x750')
 root.resizable(False,False)
 root.config(bg=background)
 print(__file__)
-#f=open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\model2.pkl',"rb")
-#model=pickle.load(f)
+
 with open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\modelthis.pkl',"rb") as model_File:
     rf_model=pickle.load(model_File)
 with open(r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\scaler.pkl',"rb") as scaler_File:
@@ -262,9 +261,9 @@ def Analysis():
     
     ##################################Report##############################################
     report=Label(root,font="arial 25 bold",text="Hello",bg="white",fg="red")
-    report.place(x=1170,y=550)
+    report.place(x=1190,y=550)
     report1=Label(root,font="arial 10 bold",text="Hello",bg="white")
-    report1.place(x=1130,y=610)
+    report1.place(x=1190,y=610)
     #Input Data age sex chestpain Hr exangina oldpeak slope
     
     input_data=[[A,B,E,K,D,L,G]]
@@ -432,22 +431,18 @@ Label(image=graph_image).place(x=860,y=500)
 
 
 ##################################Button##############################################
-analysis_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Analysis.png')
-Button(root,image=analysis_Button,bd=0,bg=background,cursor="hand1",command=Analysis).place(x=1130,y=240)
+analysis_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\analyse.png')
+Button(root,image=analysis_Button,bd=0,bg=background,cursor="hand1",command=Analysis).place(x=1160,y=250)
 
 ##################################InfoButton##############################################
 info_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\info.png')
 Button(root,image=info_Button,bd=0,bg=background,cursor="hand2",command=Info).place(x=10,y=240)
 
-##################################SaveButton##############################################
-save_Button=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\save.png')
-Button(root,image=save_Button,bd=0,bg=background,cursor="hand2" ,width=50,height=50).place(x=1350,y=250)
-
 ##################################ReportImage##############################################
 
 reportImage=PhotoImage(file=r'C:\Users\eyama\Documents\Python Heart Attack\Heart Attack Dataset\Images\Report.png')
 reportBackground=Label(image=reportImage,bg=background)
-reportBackground.place(x=1120,y=340)
+reportBackground.place(x=1150,y=340)
 
 ##################################Log out Button##############################################
 
